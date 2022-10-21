@@ -1,0 +1,14 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 4fr 12fr;
+}
+
+.dialogs_list {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog {
+    color: red;
+    text-decoration: none;
+}

@@ -1,0 +1,12 @@
+.wrapper {
+  margin: 1vw;
+  width: calc(100vw - 2vw);
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 15vw auto;
+  grid-template-rows: 5vw auto;
+  grid-gap: 1vw;
+  /*-------
+   */
+/*  background-color: black;*/
+}

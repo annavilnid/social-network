@@ -1,0 +1,55 @@
+.header {
+    background-color: #F5F5F5;
+    grid-column: 1 / -1;
+    cursor: pointer;
+    width: 100%;
+    max-height: 5vw;
+    /**/
+    /*background-color: black;
+    border:1px solid #F5F5F5*/
+}
+
+.container {
+    margin-left: 0.7vw;
+    max-width: 8vw;
+    transform-style: preserve-3d;
+    perspective: 6000px;
+}
+
+.front, .back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 8vw;
+    max-height: 5vw;
+    border-radius: 30%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+}
+
+.container:hover .front-side,
+.container:hover .back-side {
+/*    -moz-transition: 0.6s;
+    -moz-transform-style: preserve-3d;
+    -o-transition: 0.6s;
+    -o-transform-style: preserve-3d;*/
+    transition: 0.6s;
+    transform-style: preserve-3d;
+}
+
+.container:hover .back, .front {
+    transform: rotateY(0deg);
+    transform-style: preserve-3d;
+}
+
+.back {
+    transform: rotateY(180deg);
+    transform-style: preserve-3d;
+}
+
+.container:hover .front {
+    transform: rotateY(-180deg);
+    transform-style: preserve-3d;
+}
