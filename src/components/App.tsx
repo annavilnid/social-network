@@ -10,6 +10,8 @@ import {Music} from './Music/Music';
 import {Settings} from './Settings/Settings';
 import {StoreType} from '../redux/store';
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
+import {Users} from "./Users/Users";
+import {UsersContainer} from "./Users/UsersContainer";
 
 type AppPropsType = {
    // store: any
@@ -18,23 +20,21 @@ type AppPropsType = {
 }
 
 const App: React.FC<AppPropsType> = (props) => {
-  console.log(props);
-  // const state = props.store.getState()
 
   return (
     <div className="wrapper">
       <Header/>
       <Navbar/>
-      <Route path='/dialogs' render={() =>
-        <DialogsContainer
-          // store={props.store}
-        />}
+      <Route path='/dialogs'
+             render={() => <DialogsContainer/>}
       />
 
-      <Route path='/profile' render={() =>
-        <Profile
-          // store={props.store}
-        />}
+      <Route path='/profile'
+             render={() => <Profile/>}
+      />
+
+      <Route path='/users'
+             render={() => <UsersContainer/>}
       />
 
       <Route path='/news' component={News} />

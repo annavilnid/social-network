@@ -17,16 +17,20 @@ let initialState = {
   newMessage: "",
 }
 
-const dialogsReduser = (state: DialogsPageType = initialState, action: ActionType): DialogsPageType => {
+const dialogsReducer = (state: DialogsPageType = initialState, action: ActionType): DialogsPageType => {
   switch (action.type) {
     case UPDATE_MESSAGE:
-      state.newMessage = action.newMessage;
-      return state
+      return {
+        ...state,
+        newMessage: action.newMessage
+      }
     case SEND_MESSAGE:
       let body = state.newMessage;
-      state.messages.push({id: 4, message: body})
-      state.newMessage = '';
-      return state
+      return {
+        ...state,
+        newMessage: '',
+        messages: [...state.messages, {id: 4, message: body}]
+      }
     default:
       return state
   }
@@ -35,4 +39,4 @@ const dialogsReduser = (state: DialogsPageType = initialState, action: ActionTyp
 export const updateMessageAC = (newMessage:string) => ({type:'UPDATE-MESSAGE',newMessage} as const)
 export const sendMessageAC = () => ({type:'SEND-MESSAGE'} as const)
 
-export default dialogsReduser;
+export default dialogsReducer;

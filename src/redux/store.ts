@@ -1,17 +1,19 @@
-import profileReduser from "./profle-reduser";
-import dialogsReduser from "./dialogs-reduser";
-import sidebarReduser from "./sidebar-reduser"
+import profileReducer from "./profle-reduser";
+import dialogsReducer from "./dialogs-reduser";
+import sidebarReducer from "./sidebar-reduser"
 import {addPostAC} from "./profle-reduser";
 import {updatePostAC} from "./profle-reduser";
 import {updateMessageAC} from "./dialogs-reduser";
 import {sendMessageAC} from "./dialogs-reduser";
+import {followAC, setUsersAC, unfollowAC} from "./users-reduser";
 
-export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC> | ReturnType<typeof updateMessageAC> | ReturnType<typeof sendMessageAC>
+export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC> | ReturnType<typeof updateMessageAC> | ReturnType<typeof sendMessageAC> |  ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
 
 export type StateType = {
   profilePage: ProfilePageType
   dialogsPage: DialogsPageType
   sidebarPage: string
+  usersPage: UsersPageType
 }
 
 export type ProfilePageType = {
@@ -23,6 +25,10 @@ export type DialogsPageType = {
   messages: Array<MessageType>
   dialogs: Array<DialogType>
   newMessage: string,
+}
+
+export type UsersPageType = {
+  users: UserType[] | []
 }
 
 export type MyPostType = {
@@ -39,6 +45,20 @@ export type DialogType = {
 export type MessageType = {
   id: number
   message: string
+}
+
+type UserType = {
+  id: number
+  avatar: string
+  followed: boolean
+  name: string
+  message: string
+  location: UserLocationType
+}
+
+type UserLocationType = {
+  country: string
+  city: string
 }
 
 export type StoreType = {
@@ -71,7 +91,10 @@ const store: StoreType = {
       ],
       newMessage: "",
     },
-    sidebarPage: ""
+    sidebarPage: "",
+    usersPage: {
+      users: []
+    },
   },
   _onChange() {
     console.log('State Changed');
@@ -85,12 +108,12 @@ const store: StoreType = {
   },
 
   dispatch(action: ActionType) {
-    this._state.profilePage = profileReduser(this._state.profilePage, action);
-    this._state.dialogsPage = dialogsReduser(this._state.dialogsPage, action);
-    this._state.sidebarPage = sidebarReduser(this._state.sidebarPage, action);
+    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+    this._state.sidebarPage = sidebarReducer(this._state.sidebarPage, action);
+    this._state.usersPage = sidebarReducer(this._state.usersPage, action);
     this._onChange();
-}
-
+  }
 }
 
 export default store
