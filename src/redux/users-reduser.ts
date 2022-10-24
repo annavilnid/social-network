@@ -3,12 +3,19 @@ import {ActionType, UsersPageType} from "./store";
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET-USERS';
+const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
+const SET_TOTAL_USERS_COUNT ='SET-TOTAL-USERS-COUNT';
+const TOGGLE_LOADER ='TOGGLE-LOADER';
 
 export type initialStateType = {
   users: UserType[]
+  pageSize: number
+  totalUsersCount: number
+  currentPage: number
+  isLoading: boolean
 }
 
-export type UserType = {
+export type UserType =   {
   id: number
   photos: PhotosType
   followed: boolean
@@ -28,13 +35,17 @@ export type UserLocationType = {
 }
 
 export let initialState: initialStateType = {
-    users: []
+  users: [],
+  pageSize: 5,
+  totalUsersCount: 0,
+  currentPage: 1,
+  isLoading: false
 }
 
 const usersReducer = (state: initialStateType = initialState, action: ActionType): initialStateType => {
   switch (action.type) {
     case FOLLOW:
-      return {
+      return  {
         ...state,
         users: state.users.map((u: any) => action.userId === u.id ? {...u, followed: true} : u),
       }
@@ -46,7 +57,22 @@ const usersReducer = (state: initialStateType = initialState, action: ActionType
     case SET_USERS:
       return {
         ...state,
-        users: [...state.users, ...action.users],
+        users: [...action.users],
+      }
+    case SET_CURRENT_PAGE:
+      return {
+        ...state,
+        currentPage: action.currentPage,
+      }
+    case SET_TOTAL_USERS_COUNT:
+      return {
+        ...state,
+        totalUsersCount: action.totalUsersCount,
+      }
+    case TOGGLE_LOADER:
+      return {
+        ...state,
+        isLoading: !action.isLoading,
       }
     default:
       return state;
@@ -55,5 +81,8 @@ const usersReducer = (state: initialStateType = initialState, action: ActionType
 export const followAC = (userId: number) => ({type:'FOLLOW', userId} as const)
 export const unfollowAC = (userId: number) => ({type:'UNFOLLOW', userId} as const)
 export const setUsersAC = (users: UserType[]) => ({type:'SET-USERS', users} as const)
+export const setCurrentPageAC = (currentPage: number) => ({type:'SET-CURRENT-PAGE', currentPage} as const)
+export const setTotalUsersCountAC = (totalUsersCount: number) => ({type:'SET-TOTAL-USERS-COUNT', totalUsersCount} as const)
+export const toggleLoaderAC = (isLoading: boolean) => ({type:'TOGGLE-LOADER', isLoading} as const)
 
 export default usersReducer;

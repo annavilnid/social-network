@@ -11,7 +11,7 @@ import {Settings} from './Settings/Settings';
 import {StoreType} from '../redux/store';
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
 import {Users} from "./Users/Users";
-import {UsersContainer} from "./Users/UsersContainer";
+import UsersContainer from "./Users/UsersContainer";
 
 type AppPropsType = {
    // store: any

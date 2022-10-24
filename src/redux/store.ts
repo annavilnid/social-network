@@ -5,9 +5,16 @@ import {addPostAC} from "./profle-reduser";
 import {updatePostAC} from "./profle-reduser";
 import {updateMessageAC} from "./dialogs-reduser";
 import {sendMessageAC} from "./dialogs-reduser";
-import {followAC, setUsersAC, unfollowAC} from "./users-reduser";
+import {
+  followAC,
+  setCurrentPageAC,
+  setTotalUsersCountAC,
+  setUsersAC,
+  toggleLoaderAC,
+  unfollowAC
+} from "./users-reduser";
 
-export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC> | ReturnType<typeof updateMessageAC> | ReturnType<typeof sendMessageAC> |  ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC>
+export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC> | ReturnType<typeof updateMessageAC> | ReturnType<typeof sendMessageAC> |  ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC> | ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setTotalUsersCountAC> | ReturnType<typeof toggleLoaderAC>
 
 export type StateType = {
   profilePage: ProfilePageType

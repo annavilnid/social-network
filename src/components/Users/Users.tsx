@@ -1,66 +1,44 @@
 import style from './Users.module.css.module.css'
 import {DialogsPageType, UsersPageType} from "../../redux/store";
-import {UsersPropsType} from "./UsersContainer";
 import axios from "axios";
+import s from "./UsersContainer.module.css";
+import {UserType} from "../../redux/users-reduser";
 
-export const Users = (props: UsersPropsType) => {
-  const getUsers = () => {
-    if (props.usersPage.users.length === 0) {
-      axios.get('https://social-network.samuraijs.com/api/1.0/users')
-        .then((response) => {
-          console.log(response.data.items)
-          props.setUsers(response.data.items)
-        });
+type UsersComponentPropsType = {
+  totalUsersCount: number
+  pageSize: number
+  currentPage: number
+  users: UserType[]
+  follow: (userId: number) => void
+  unfollow: (userId: number) => void
+  onPageChange: (pageNumber: number) => void
+}
+
+export const Users = (props: UsersComponentPropsType) => {
+
+    let pageCount = Math.ceil(props.totalUsersCount / props.pageSize);
+    let pages = [];
+    for (let i = 1; i <= pageCount; i++) {
+      pages.push(i);
     }
-  }
 
-  //   props.setUsers( [
-  //       {
-  //         id: 1,
-  //         avatar: 'https://i.pravatar.cc/150?img=53',
-  //         followed: false,
-  //         name: 'Dmitry',
-  //         message: 'I am looking for a Job...',
-  //         location: {country: 'Belarus', city: 'Minsk'}
-  //       },
-  //       {
-  //         id: 2,
-  //         avatar: 'https://i.pravatar.cc/150?img=25',
-  //         followed: true,
-  //         name: 'Sveta',
-  //         message: 'I am so pretty',
-  //         location: {country: 'Belarus', city: 'Minsk'}
-  //       },
-  //       {
-  //         id: 3,
-  //         avatar: 'https://i.pravatar.cc/150?img=18',
-  //         followed: true,
-  //         name: 'Igor',
-  //         message: 'I am so pretty',
-  //         location: {country: 'Belarus', city: 'Minsk'}
-  //       },
-  //       {
-  //         id: 4,
-  //         avatar: 'https://i.pravatar.cc/150?img=66',
-  //         followed: false,
-  //         name: 'Max',
-  //         message: 'I am so pretty',
-  //         location: {country: 'Belarus', city: 'Minsk'}
-  //       },
-  //     ])
-  // }
-
-  return (
-    <div>
-      <button onClick={getUsers}>GetUsers</button>
+    return <div>
+      <div>
+        {pages.map (p => {
+          return <span key={p} className={props.currentPage === p ? s.selectedPage : s.page}
+                       onClick={() => props.onPageChange(p)}
+          >{p}</span>
+        })}
+      </div>
+      {/*<button onClick={this.getUsers}>GetUsers</button>*/}
       {
-        props.usersPage.users.map(u => <div key={u.id}>
+        props.users.map(u => <div key={u.id}>
           <span>
             <div>
-              <img src={u.photos.small ! =null ? u.photos.small : 'https://i.pravatar.cc/150?img=25'} />
+              <img src={u.photos.small ! = null ? u.photos.small : 'https://i.pravatar.cc/150?img=25'} />
             </div>
-              {u.followed ? <button onClick={() => { props.follow(u.id) } }>Unfollow</button>
-                : <button onClick={() => { props.unfollow(u.id) } }>Follow</button>}
+            {u.followed ? <button onClick={() => { props.unfollow(u.id) } }>Unfollow</button>
+              : <button onClick={() => { props.follow(u.id) } }>Follow</button>}
           </span>
           <span>
             <span>
@@ -75,5 +53,6 @@ export const Users = (props: UsersPropsType) => {
         </div> )
       }
     </div>
-  );
 }
+
+export default Users
