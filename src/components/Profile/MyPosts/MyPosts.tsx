@@ -2,17 +2,18 @@ import React, {ChangeEvent} from "react";
 import style from './MyPosts.module.css'
 import {Post} from "./Post/Post";
 import {ActionType, MyPostType} from "../../../redux/store";
-import {addPostAC} from "../../../redux/profle-reduser"
-import {updatePostAC} from "../../../redux/profle-reduser"
+import {addPost} from "../../../redux/profle-reduser"
+import {updatePost} from "../../../redux/profle-reduser"
 
 type MyPostsPropsType = {
   newPost?: string
   posts: MyPostType[]
-  updateNewPostText: (text: string) => void
+  updatePost: (text: string) => void
   addPost: () => void
 }
 
 export const MyPosts: React.FC <MyPostsPropsType> = (props) => {
+  console.log(props)
   const PostElement = props.posts.map((p) => <Post key={p.id} message={p.message} likesCounter={p.likesCounter} />)
 
   // let newPostElement = React.createRef<HTMLTextAreaElement>()
@@ -23,7 +24,7 @@ export const MyPosts: React.FC <MyPostsPropsType> = (props) => {
 
   const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     let text = e.currentTarget.value
-    props.updateNewPostText(text)
+    props.updatePost(text)
   }
 
   return (

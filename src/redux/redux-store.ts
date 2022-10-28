@@ -3,19 +3,21 @@ import dialogsReducer from "./dialogs-reduser";
 import profileReducer from "./profle-reduser";
 import sidebarReducer from "./sidebar-reduser";
 import usersReducer from "./users-reduser";
+import authReducer from "./auth-reduser";
 
 let rootReducer = combineReducers({
   profilePage: profileReducer,
   dialogsPage: dialogsReducer,
   sidebarPage: sidebarReducer,
-  usersPage: usersReducer
+  usersPage: usersReducer,
+  auth: authReducer
 });
 
 export type AppStateType = ReturnType<typeof rootReducer>;
 //
 let store = createStore(rootReducer);
 
-//
-// window.store = store;
+//@ts-ignore
+window.store = store;
 //
 export default store;

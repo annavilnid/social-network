@@ -1,19 +1,21 @@
 import {
-  followAC,
   initialStateType,
-  setCurrentPageAC,
-  setTotalUsersCountAC,
-  setUsersAC, toggleLoaderAC,
   UserType
 } from "../../redux/users-reduser";
-import {unfollowAC} from "../../redux/users-reduser";
 import {connect} from "react-redux";
 import {Users} from "./Users";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
 import {Component} from "react";
 import Preloader from "../Preloader/Preloader"
 import axios from "axios";
+import {
+  follow,
+  setCurrentPage,
+  setTotalUsersCount,
+  setUsers,
+  toggleLoader,
+  unfollow
+} from "./../../redux/users-reduser";
 
 export type MapStatePropsType = initialStateType
 
@@ -78,7 +80,6 @@ class UsersContainer extends Component<UsersPropsType & initialStateType> {
 }
 
 export let mapStateToProps  = (state: AppStateType ): MapStatePropsType  => {
-   console.log(state)
 
     return {
       users: state.usersPage.users,
@@ -89,27 +90,27 @@ export let mapStateToProps  = (state: AppStateType ): MapStatePropsType  => {
     }
   }
 
-export let mapDispatchToProps  = (dispatch: Dispatch): MapDispatchPropsType => {
-    return {
-      follow: (userId: number) => {
-        dispatch(followAC(userId))
-      },
-      unfollow: (userId: number) => {
-        dispatch(unfollowAC(userId))
-      },
-      setUsers: (users: UserType[]) => {
-        dispatch(setUsersAC(users))
-      },
-      setCurrentPage: (currentPage: number) => {
-        dispatch(setCurrentPageAC(currentPage))
-      },
-      setTotalUsersCount: (totalUsersCount: number) => {
-        dispatch(setTotalUsersCountAC(totalUsersCount))
-      },
-      toggleLoader: (isLoading: boolean) => {
-        dispatch(toggleLoaderAC(isLoading))
-      }
-    }
-  }
+// export let mapDispatchToProps  = (dispatch: Dispatch): MapDispatchPropsType => {
+//     return {
+//       follow: (userId: number) => {
+//         dispatch(followAC(userId))
+//       },
+//       unfollow: (userId: number) => {
+//         dispatch(unfollowAC(userId))
+//       },
+//       setUsers: (users: UserType[]) => {
+//         dispatch(setUsersAC(users))
+//       },
+//       setCurrentPage: (currentPage: number) => {
+//         dispatch(setCurrentPageAC(currentPage))
+//       },
+//       setTotalUsersCount: (totalUsersCount: number) => {
+//         dispatch(setTotalUsersCountAC(totalUsersCount))
+//       },
+//       toggleLoader: (isLoading: boolean) => {
+//         dispatch(toggleLoaderAC(isLoading))
+//       }
+//     }
+//   }
 
-  export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+  export default connect(mapStateToProps, {follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleLoader})(UsersContainer);

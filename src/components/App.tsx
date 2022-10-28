@@ -12,6 +12,8 @@ import {StoreType} from '../redux/store';
 import {DialogsContainer} from "./Dialogs/DialogsContainer";
 import {Users} from "./Users/Users";
 import UsersContainer from "./Users/UsersContainer";
+import ProfileContainer from "./Profile/ProfileContainer";
+import HeaderContainer from "./Header/HeaderContainer";
 
 type AppPropsType = {
    // store: any
@@ -23,14 +25,14 @@ const App: React.FC<AppPropsType> = (props) => {
 
   return (
     <div className="wrapper">
-      <Header/>
+      <HeaderContainer/>
       <Navbar/>
       <Route path='/dialogs'
              render={() => <DialogsContainer/>}
       />
 
-      <Route path='/profile'
-             render={() => <Profile/>}
+      <Route path='/profile/:userId?'
+             render={() => <ProfileContainer/>}
       />
 
       <Route path='/users'

@@ -3,15 +3,18 @@ import style from'./Profile.module.css'
 import {MyPosts} from "./MyPosts/MyPosts";
 import {ActionType, ProfilePageType} from "../../redux/store";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+import {MapStatePropsType} from "./ProfileContainer";
+import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {ProfileType} from "../../redux/profle-reduser";
 
 type ProfilePropsType = {
+  profile: ProfileType | null
   // state: ProfilePageType
   // dispatch: (action: ActionType) => void
   // store: any
 }
 
 export const Profile: React.FC<ProfilePropsType> = (props) => {
-  console.log(props)
   return (
     <div className={style.profile}>
       <img className={style.picture}
@@ -20,7 +23,8 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
       <div>
         ava + description
       </div>
-      <MyPostsContainer
+      <ProfileInfo profile = {props.profile} />
+      <MyPostsContainer {...props}
         // store={props.store}
         // posts={props.state.posts}
         // newPost={props.state.newPost}

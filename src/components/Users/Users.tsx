@@ -3,6 +3,7 @@ import {DialogsPageType, UsersPageType} from "../../redux/store";
 import axios from "axios";
 import s from "./UsersContainer.module.css";
 import {UserType} from "../../redux/users-reduser";
+import {NavLink} from "react-router-dom";
 
 type UsersComponentPropsType = {
   totalUsersCount: number
@@ -35,7 +36,9 @@ export const Users = (props: UsersComponentPropsType) => {
         props.users.map(u => <div key={u.id}>
           <span>
             <div>
+              <NavLink to={`/profile/${u.id}`}>
               <img src={u.photos.small ! = null ? u.photos.small : 'https://i.pravatar.cc/150?img=25'} />
+              </NavLink>
             </div>
             {u.followed ? <button onClick={() => { props.unfollow(u.id) } }>Unfollow</button>
               : <button onClick={() => { props.follow(u.id) } }>Follow</button>}

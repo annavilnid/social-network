@@ -53,3 +53,7 @@
     transform: rotateY(-180deg);
     transform-style: preserve-3d;
 }
+
+.login {
+    float: right;
+}

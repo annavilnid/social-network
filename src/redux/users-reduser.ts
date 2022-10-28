@@ -1,4 +1,4 @@
-import {ActionType, UsersPageType} from "./store";
+import {ActionType} from "./store";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -15,7 +15,7 @@ export type initialStateType = {
   isLoading: boolean
 }
 
-export type UserType =   {
+export type UserType = {
   id: number
   photos: PhotosType
   followed: boolean
@@ -78,11 +78,11 @@ const usersReducer = (state: initialStateType = initialState, action: ActionType
       return state;
   }
 }
-export const followAC = (userId: number) => ({type:'FOLLOW', userId} as const)
-export const unfollowAC = (userId: number) => ({type:'UNFOLLOW', userId} as const)
-export const setUsersAC = (users: UserType[]) => ({type:'SET-USERS', users} as const)
-export const setCurrentPageAC = (currentPage: number) => ({type:'SET-CURRENT-PAGE', currentPage} as const)
-export const setTotalUsersCountAC = (totalUsersCount: number) => ({type:'SET-TOTAL-USERS-COUNT', totalUsersCount} as const)
-export const toggleLoaderAC = (isLoading: boolean) => ({type:'TOGGLE-LOADER', isLoading} as const)
+export const follow = (userId: number) => ({type:'FOLLOW', userId} as const)
+export const unfollow = (userId: number) => ({type:'UNFOLLOW', userId} as const)
+export const setUsers = (users: UserType[]) => ({type:'SET-USERS', users} as const)
+export const setCurrentPage = (currentPage: number) => ({type:'SET-CURRENT-PAGE', currentPage} as const)
+export const setTotalUsersCount = (totalUsersCount: number) => ({type:'SET-TOTAL-USERS-COUNT', totalUsersCount} as const)
+export const toggleLoader = (isLoading: boolean) => ({type:'TOGGLE-LOADER', isLoading} as const)
 
 export default usersReducer;

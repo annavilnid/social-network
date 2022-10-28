@@ -1,20 +1,21 @@
-import profileReducer from "./profle-reduser";
+import profileReducer, {ProfileType, setUserProfile} from "./profle-reduser";
 import dialogsReducer from "./dialogs-reduser";
 import sidebarReducer from "./sidebar-reduser"
-import {addPostAC} from "./profle-reduser";
-import {updatePostAC} from "./profle-reduser";
+import {addPost} from "./profle-reduser";
+import {updatePost} from "./profle-reduser";
 import {updateMessageAC} from "./dialogs-reduser";
 import {sendMessageAC} from "./dialogs-reduser";
 import {
-  followAC,
-  setCurrentPageAC,
-  setTotalUsersCountAC,
-  setUsersAC,
-  toggleLoaderAC,
-  unfollowAC
+  follow,
+  setCurrentPage,
+  setTotalUsersCount,
+  setUsers,
+  toggleLoader,
+  unfollow
 } from "./users-reduser";
+import {setAuthUserData} from "./auth-reduser";
 
-export type ActionType = ReturnType<typeof addPostAC> | ReturnType<typeof updatePostAC> | ReturnType<typeof updateMessageAC> | ReturnType<typeof sendMessageAC> |  ReturnType<typeof followAC> | ReturnType<typeof unfollowAC> | ReturnType<typeof setUsersAC> | ReturnType<typeof setCurrentPageAC> | ReturnType<typeof setTotalUsersCountAC> | ReturnType<typeof toggleLoaderAC>
+export type ActionType = ReturnType<typeof addPost> | ReturnType<typeof updatePost> | ReturnType<typeof updateMessageAC> | ReturnType<typeof sendMessageAC> |  ReturnType<typeof follow> | ReturnType<typeof unfollow> | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage> | ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleLoader> | ReturnType<typeof setUserProfile> | ReturnType<typeof setAuthUserData>
 
 export type StateType = {
   profilePage: ProfilePageType
@@ -24,6 +25,7 @@ export type StateType = {
 }
 
 export type ProfilePageType = {
+  profile: null | ProfileType,
   newPost: string,
   posts: Array<MyPostType>
 }
@@ -79,6 +81,7 @@ export type StoreType = {
 const store: StoreType = {
   _state: {
     profilePage: {
+      profile: null,
       newPost: "",
       posts: [
         {id: 1, message: 'Hi, how are you?', likesCounter: 5},
