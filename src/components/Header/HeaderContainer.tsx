@@ -2,13 +2,14 @@ import {Component} from "react";
 import axios from "axios";
 import {connect} from "react-redux";
 import {
-  initialStateType, dataType
+  initialStateType, dataType,
 } from "../../redux/auth-reduser";
 import {AppStateType} from "../../redux/redux-store";
 import {Header} from "./Header";
 import {
-  setAuthUserData
+  setAuthUserData, getUserInfo, signOut
 } from "./../../redux/auth-reduser";
+import {usersAPI} from "../../api/api";
 
 export type MapStatePropsType = {
   login: string | null
@@ -16,38 +17,41 @@ export type MapStatePropsType = {
 }
 
 export type MapDispatchPropsType = {
-  setAuthUserData: (data: dataType) => void;
+  // setAuthUserData: (data: dataType) => void;
+  // getUserInfo: () => void
+  signOut: () => void
 }
 
 export type HeaderContainerPropsType = MapStatePropsType & MapDispatchPropsType
 
 export class HeaderContainer extends Component <HeaderContainerPropsType> {
-  componentDidMount() {
-    // this.props.toggleLoader(this.props.isLoading)
-    axios.get('https://social-network.samuraijs.com/api/1.0/auth/me', {withCredentials: true})
-      .then((response) => {
-        console.log(response)
-        if (response.data.resultCode === 0) {
-          console.log('data')
-          console.log(response.data.data)
-          let userData = response.data.data;
-          console.log('1')
-          console.log(this.props);
-          let userAuthData: dataType = {
-            userId: response.data.data.id,
-            login: response.data.data.login,
-            email: response.data.data.email,
-          }
-          this.props.setAuthUserData(userAuthData)
-        }
-      })
-      .catch((err) => {
-        // console.log(err)
-      })
-      .finally(() => {
-        // this.props.toggleLoader(this.props.isLoading)
-      });
-  }
+  // componentDidMount() {
+  //   this.props.getUserInfo()
+  //   // this.props.toggleLoader(!this.props.isLoading)
+  //   usersAPI.getUserInfo()
+  //     .then((response) => {
+  //       console.log(response)
+  //       if (response.data.resultCode === 0) {
+  //         console.log('data')
+  //         console.log(response.data.data)
+  //         let userData = response.data.data;
+  //         console.log('1')
+  //         console.log(this.props);
+  //         let userAuthData: dataType = {
+  //           userId: response.data.data.id,
+  //           login: response.data.data.login,
+  //           email: response.data.data.email,
+  //         }
+  //         this.props.setAuthUserData(userAuthData)
+  //       }
+  //     })
+  //     .catch((err) => {
+  //       // console.log(err)
+  //     })
+  //     .finally(() => {
+  //       // this.props.toggleLoader(!this.props.isLoading)
+  //     });
+  // }
 
   render() {
     return <Header {...this.props} />
@@ -61,5 +65,5 @@ export let mapStateToProps  = (state: AppStateType ): MapStatePropsType   => {
   }
 }
 
-export default connect(mapStateToProps,{setAuthUserData})(HeaderContainer);
+export default connect(mapStateToProps,{signOut})(HeaderContainer);
 

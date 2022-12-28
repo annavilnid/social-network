@@ -5,10 +5,12 @@ import {ActionType, ProfilePageType} from "../../redux/store";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {MapStatePropsType} from "./ProfileContainer";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {ProfileType} from "../../redux/profle-reduser";
+import {ProfileType, updateUserStatus} from "../../redux/profle-reduser";
 
 type ProfilePropsType = {
   profile: ProfileType | null
+  status: string
+  updateUserStatus: (status: string) => void
   // state: ProfilePageType
   // dispatch: (action: ActionType) => void
   // store: any
@@ -23,7 +25,7 @@ export const Profile: React.FC<ProfilePropsType> = (props) => {
       <div>
         ava + description
       </div>
-      <ProfileInfo profile = {props.profile} />
+      <ProfileInfo profile={props.profile} status={props.status} updateUserStatus={props.updateUserStatus} />
       <MyPostsContainer {...props}
         // store={props.store}
         // posts={props.state.posts}

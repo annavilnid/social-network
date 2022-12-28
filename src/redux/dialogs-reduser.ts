@@ -13,22 +13,20 @@ let initialState = {
     {id: 1, name: 'Yury'},
     {id: 2, name: 'Anna'},
     {id: 3, name: 'Max'}
-  ],
-  newMessage: "",
+  ]
 }
 
 const dialogsReducer = (state: DialogsPageType = initialState, action: ActionType): DialogsPageType => {
   switch (action.type) {
-    case UPDATE_MESSAGE:
-      return {
-        ...state,
-        newMessage: action.newMessage
-      }
+    // case UPDATE_MESSAGE:
+    //   return {
+    //     ...state,
+    //     newMessage: action.newMessage
+    //   }
     case SEND_MESSAGE:
-      let body = state.newMessage;
+      let body = action.newMessage;
       return {
         ...state,
-        newMessage: '',
         messages: [...state.messages, {id: 4, message: body}]
       }
     default:
@@ -36,7 +34,7 @@ const dialogsReducer = (state: DialogsPageType = initialState, action: ActionTyp
   }
 }
 
-export const updateMessageAC = (newMessage:string) => ({type:'UPDATE-MESSAGE',newMessage} as const)
-export const sendMessageAC = () => ({type:'SEND-MESSAGE'} as const)
+// export const updateMessageAC = (newMessage:string) => ({type:'UPDATE-MESSAGE',newMessage} as const)
+export const sendMessageAC = (newMessage: string) => ({type:'SEND-MESSAGE', newMessage} as const)
 
 export default dialogsReducer;

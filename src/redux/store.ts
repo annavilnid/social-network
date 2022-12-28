@@ -1,22 +1,24 @@
-import profileReducer, {ProfileType, setUserProfile} from "./profle-reduser";
+import profileReducer, {ProfileType, setStatusProfile, setUserProfile} from "./profle-reduser";
 import dialogsReducer from "./dialogs-reduser";
 import sidebarReducer from "./sidebar-reduser"
-import {addPost} from "./profle-reduser";
-import {updatePost} from "./profle-reduser";
-import {updateMessageAC} from "./dialogs-reduser";
+import {sendPost} from "./profle-reduser";
+// import {updatePost} from "./profle-reduser";
+// import {updateMessageAC} from "./dialogs-reduser";
 import {sendMessageAC} from "./dialogs-reduser";
 import {
-  follow,
+  followSuccess,
   setCurrentPage,
   setTotalUsersCount,
-  setUsers,
+  setUsers, toggleFollowingProgress,
   toggleLoader,
-  unfollow
+  unfollowSuccess
 } from "./users-reduser";
 import {setAuthUserData} from "./auth-reduser";
+import {initializedSuccess} from "./app-reduser";
 
-export type ActionType = ReturnType<typeof addPost> | ReturnType<typeof updatePost> | ReturnType<typeof updateMessageAC> | ReturnType<typeof sendMessageAC> |  ReturnType<typeof follow> | ReturnType<typeof unfollow> | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage> | ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleLoader> | ReturnType<typeof setUserProfile> | ReturnType<typeof setAuthUserData>
-
+export type ActionType = ReturnType<typeof sendPost> | ReturnType<typeof sendMessageAC> |  ReturnType<typeof followSuccess> | ReturnType<typeof unfollowSuccess> | ReturnType<typeof setUsers> | ReturnType<typeof setCurrentPage> | ReturnType<typeof setTotalUsersCount> | ReturnType<typeof toggleLoader> | ReturnType<typeof setUserProfile> | ReturnType<typeof setAuthUserData> | ReturnType<typeof toggleFollowingProgress> | ReturnType<typeof setStatusProfile> | ReturnType<typeof initializedSuccess>
+// ReturnType<typeof updateMessageAC>
+// ReturnType<typeof updatePost>
 export type StateType = {
   profilePage: ProfilePageType
   dialogsPage: DialogsPageType
@@ -28,12 +30,13 @@ export type ProfilePageType = {
   profile: null | ProfileType,
   newPost: string,
   posts: Array<MyPostType>
+  status: string
 }
 
 export type DialogsPageType = {
   messages: Array<MessageType>
   dialogs: Array<DialogType>
-  newMessage: string,
+  // newMessage: string,
 }
 
 export type UsersPageType = {
@@ -87,6 +90,7 @@ const store: StoreType = {
         {id: 1, message: 'Hi, how are you?', likesCounter: 5},
         {id: 2, message: 'It\'s my first post', likesCounter: 5}
       ],
+      status: "",
     },
     dialogsPage: {
       messages: [
@@ -99,7 +103,7 @@ const store: StoreType = {
         {id: 2, name: 'Anna'},
         {id: 3, name: 'Max'}
       ],
-      newMessage: "",
+      // newMessage: "",
     },
     sidebarPage: "",
     usersPage: {
@@ -118,7 +122,7 @@ const store: StoreType = {
   },
 
   dispatch(action: ActionType) {
-    this._state.profilePage = profileReducer(this._state.profilePage, action);
+    // this._state.profilePage = profileReducer(this._state.profilePage, action);
     this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
     this._state.sidebarPage = sidebarReducer(this._state.sidebarPage, action);
     this._state.usersPage = sidebarReducer(this._state.usersPage, action);

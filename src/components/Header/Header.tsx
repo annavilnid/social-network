@@ -9,6 +9,7 @@ import {UserType} from "../../redux/users-reduser";
 type HeaderComponentPropsType = {
   login: string | null
   isAuth: boolean
+  signOut: () => void
 }
 
 export const Header = (props: HeaderComponentPropsType) => {
@@ -16,7 +17,7 @@ export const Header = (props: HeaderComponentPropsType) => {
     <header className={style.header}>
       <div className={style.container}>
         <div className={s.login}>
-          { props.isAuth ? props.login
+          { props.isAuth ? <div>{props.login}<button onClick={props.signOut}>logout</button></div>
             : <NavLink to='/login'>Login</NavLink>}
         </div>
         <img className={style.front} src={logo} alt="logo"/>
